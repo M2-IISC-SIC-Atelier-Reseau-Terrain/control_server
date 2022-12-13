@@ -7,8 +7,10 @@ import fr.cyu.rt.control.dao.user.UserDao;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Aldric Vitali Silvestre
@@ -41,7 +43,8 @@ public class UserJpaPersistence extends BaseJpaRepository<User, Long> implements
         return queryDslFactory()
                 .selectFrom(USER)
                 .where(USER.name.eq(name))
-                .stream().findFirst();
+                .stream()
+                .findFirst();
     }
 
     @Override

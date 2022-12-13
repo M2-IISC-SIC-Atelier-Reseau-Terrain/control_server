@@ -17,7 +17,7 @@ public class HealthController {
 
     @GetMapping("/")
     public String ping() {
-        LOGGER.info("==== RECEIVE HEALTH REQUEST ====");
+        LOGGER.trace("==== RECEIVE HEALTH REQUEST ====");
         return "pong";
     }
 

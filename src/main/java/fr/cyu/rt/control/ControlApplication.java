@@ -41,15 +41,15 @@ public class ControlApplication {
     @Bean
     public CommandLineRunner commandLineRunner() {
         return args -> {
-            userService.createUser("bernard",
+            userService.createUser("user",
                                    "123456",
                                    "bernard.carpette@yopmail.com",
                                    UserRole.USER
             );
-            userService.createUser("billy",
+            userService.createUser("admin",
                                    "123456",
                                    "billy@yopmail.com",
-                                   UserRole.USER
+                                   UserRole.ADMIN
             );
         };
     }
