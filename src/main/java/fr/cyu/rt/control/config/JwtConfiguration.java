@@ -31,7 +31,7 @@ public class JwtConfiguration {
     public KeyStore keyStore() {
         try {
             JwtProperties.Keystore keystore = jwtProperties.keystore();
-            File keyStoreFile = new File(keystore.path());
+            File keyStoreFile = keystore.path().toFile();
             KeyStore keyStore = KeyStore.getInstance(keyStoreFile, keystore.keyStorePassword().toCharArray());
             return keyStore;
         }

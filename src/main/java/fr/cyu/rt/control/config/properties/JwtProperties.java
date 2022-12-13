@@ -3,6 +3,8 @@ package fr.cyu.rt.control.config.properties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
+import java.nio.file.Path;
+
 /**
  * @author Aldric Vitali Silvestre
  */
@@ -16,7 +18,7 @@ public record JwtProperties(
 ) {
 
     public record Keystore(
-            String path,
+            Path path,
             String alias,
             String keyStorePassword,
             String aliasPassword
