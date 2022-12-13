@@ -1,0 +1,24 @@
+
+
+# ==== SECURITY ====
+jwt.header=Authorization
+jwt.expiration=604800
+jwt.signatureAlgorithm=RS512
+jwt.keystore.path=./jwt/rt_jwt.jks
+jwt.keystore.alias=rt_jwt
+jwt.keystore.keyStorePassword=6KExCbwvG5928PaPke7k
+jwt.keystore.aliasPassword=6KExCbwvG5928PaPke7k
+
+# ==== DATABASE ====
+# Si besoin de SQL, changer ici
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+spring.jpa.show-sql = true
+
+# ==== LOG ====
+logging.level.fr.cyu.rt.test_websockets=TRACE
+
