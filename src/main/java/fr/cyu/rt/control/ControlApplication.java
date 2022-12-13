@@ -51,6 +51,11 @@ public class ControlApplication {
                                    "billy@yopmail.com",
                                    UserRole.ADMIN
             );
+            userService.createUser("com",
+                                   "123456",
+                                   "com@yopmail.com",
+                                   UserRole.COM
+            );
         };
     }
 }

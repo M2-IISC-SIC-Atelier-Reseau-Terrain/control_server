@@ -1,7 +1,9 @@
 package fr.cyu.rt.control.api.rest.sensors;
 
+import fr.cyu.rt.control.business.sensor.Sensor;
 import fr.cyu.rt.control.business.sensor.SensorType;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -12,7 +14,18 @@ public record RespSensor(
         SensorType type,
         boolean active,
         boolean alert,
+        LocalDateTime lastUpdate,
         Map<String, Object> values
 ) {
 
+    public RespSensor(Sensor sensor) {
+        this(sensor.getId(),
+             sensor.getType(),
+             sensor.isActive(),
+             sensor.isOnAlert(),
+             sensor.getLastUpdateTime(),
+             // TODO better handle when we know how we have those values
+             Map.of("value", sensor.getValue())
+        );
+    }
 }

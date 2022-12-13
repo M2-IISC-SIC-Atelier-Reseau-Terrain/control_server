@@ -2,15 +2,13 @@ package fr.cyu.rt.control.persistence.user;
 
 import fr.cyu.rt.control.business.user.QUser;
 import fr.cyu.rt.control.business.user.User;
-import fr.cyu.rt.control.dao.jpa.BaseJpaRepository;
+import fr.cyu.rt.control.persistence.jpa.BaseJpaRepository;
 import fr.cyu.rt.control.dao.user.UserDao;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author Aldric Vitali Silvestre

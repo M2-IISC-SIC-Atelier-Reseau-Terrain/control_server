@@ -6,6 +6,7 @@ package fr.cyu.rt.control.business.user;
 public enum UserRole {
     USER("ROLE_USER"),
     ADMIN("ROLE_ADMIN"),
+    COM("ROLE_COM"),
     ;
 
     private String role;

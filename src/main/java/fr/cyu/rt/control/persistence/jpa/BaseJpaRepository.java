@@ -1,4 +1,4 @@
-package fr.cyu.rt.control.dao.jpa;
+package fr.cyu.rt.control.persistence.jpa;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
