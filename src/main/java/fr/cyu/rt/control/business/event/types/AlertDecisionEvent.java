@@ -1,6 +1,7 @@
 package fr.cyu.rt.control.business.event.types;
 
 import fr.cyu.rt.control.business.event.Event;
+import fr.cyu.rt.control.business.event.EventType;
 
 import javax.persistence.Entity;
 import java.util.Objects;
@@ -14,6 +15,7 @@ public class AlertDecisionEvent extends Event {
     private boolean isRealAlert = false;
 
     public AlertDecisionEvent() {
+        super(EventType.ALERT_DECISION);
     }
 
     public boolean isRealAlert() {

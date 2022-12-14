@@ -1,5 +1,8 @@
 package fr.cyu.rt.control.business.sensor;
 
+import org.springframework.stereotype.Indexed;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -8,13 +11,22 @@ import java.util.Objects;
  *
  * @author Aldric Vitali Silvestre
  */
+@Entity
+@Table(indexes = {
+        @Index(name = "SENSOR_IDX_TIMESTAMP", columnList = "received_timestamp")
+})
 public class SensorData {
 
-    private String id;
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String sensorId;
+
+    @Column(name = "received_timestamp", nullable = false)
+    private LocalDateTime receivedTimestamp;
 
     private SensorType type;
-
-    private LocalDateTime receivedTimestamp;
 
     private LocalDateTime registeredTimestamp = LocalDateTime.now();
 
@@ -23,24 +35,32 @@ public class SensorData {
     public SensorData() {
     }
 
-    public SensorData(String id,
+    public SensorData(String sensorId,
                       SensorType type,
                       LocalDateTime receivedTimestamp,
                       LocalDateTime registeredTimestamp,
                       String value) {
-        this.id = id;
+        this.sensorId = sensorId;
         this.type = type;
         this.receivedTimestamp = receivedTimestamp;
         this.registeredTimestamp = registeredTimestamp;
         this.value = value;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getSensorId() {
+        return sensorId;
+    }
+
+    public void setSensorId(String sensorId) {
+        this.sensorId = sensorId;
     }
 
     public SensorType getType() {
@@ -84,15 +104,17 @@ public class SensorData {
             return false;
         }
         SensorData that = (SensorData) o;
-        return Objects.equals(id, that.id) && type == that.type && Objects.equals(receivedTimestamp,
-                                                                                  that.receivedTimestamp
-        ) && Objects.equals(registeredTimestamp, that.registeredTimestamp) && Objects.equals(value,
-                                                                                             that.value
-        );
+        return Objects.equals(id, that.id) && Objects.equals(sensorId,
+                                                             that.sensorId
+        ) && Objects.equals(receivedTimestamp,
+                            that.receivedTimestamp
+        ) && type == that.type && Objects.equals(registeredTimestamp,
+                                                 that.registeredTimestamp
+        ) && Objects.equals(value, that.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, receivedTimestamp, registeredTimestamp, value);
+        return Objects.hash(id, sensorId, receivedTimestamp, type, registeredTimestamp, value);
     }
 }

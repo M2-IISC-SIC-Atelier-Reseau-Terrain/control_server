@@ -12,13 +12,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class CameraRegistry {
 
+    private boolean isUserControlling = false;
+
     private byte[] imageBinary = null;
 
-    public byte[] getImageBinary() {
+    public synchronized byte[] getImageBinary() {
         return imageBinary;
     }
 
-    public void setImageBinary(byte[] imageBinary) {
+    public synchronized void setImageBinary(byte[] imageBinary) {
         this.imageBinary = imageBinary;
+    }
+
+    public synchronized boolean isUserControlling() {
+        return isUserControlling;
+    }
+
+    public synchronized void setUserControlling(boolean userControlling) {
+        isUserControlling = userControlling;
     }
 }

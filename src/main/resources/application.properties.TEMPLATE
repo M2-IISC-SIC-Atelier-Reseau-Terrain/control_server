@@ -19,6 +19,9 @@ spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 
 spring.jpa.show-sql = true
 
+# ==== STORAGE ====
+camera.storage.root_path=[path/to/storage]
+
 # ==== LOG ====
 logging.level.fr.cyu.rt.test_websockets=TRACE
 

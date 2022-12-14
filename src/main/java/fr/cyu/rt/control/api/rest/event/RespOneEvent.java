@@ -28,4 +28,16 @@ public class RespOneEvent {
     public EventType getEventType() {
         return eventType;
     }
+
+    public String getSensorId() {
+        return sensorId;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

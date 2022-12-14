@@ -9,9 +9,9 @@ import javax.persistence.Entity;
  * @author Aldric Vitali Silvestre
  */
 @Entity
-public class AlertEndEvent extends Event {
+public class UserActivationEvent extends Event {
 
-    public AlertEndEvent() {
-        super(EventType.ALERT_END);
+    public UserActivationEvent() {
+        super(EventType.USER_ACTIVATION);
     }
 }

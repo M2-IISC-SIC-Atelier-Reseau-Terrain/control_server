@@ -11,7 +11,10 @@ import java.util.Objects;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Event {
+public abstract class Event {
+
+    // TODO create other events implementations
+    // TODO set implems types directly
 
     @Id
     @GeneratedValue
@@ -34,18 +37,8 @@ public class Event {
     public Event() {
     }
 
-    public Event(Long id,
-                 EventType eventType,
-                 String sensorId,
-                 SensorType sensorType,
-                 LocalDateTime timestampReceived, LocalDateTime timestampStored, String value) {
-        this.id = id;
+    public Event(EventType eventType) {
         this.eventType = eventType;
-        this.sensorId = sensorId;
-        this.sensorType = sensorType;
-        this.timestampReceived = timestampReceived;
-        this.timestampStored = timestampStored;
-        this.value = value;
     }
 
     public Long getId() {
