@@ -23,6 +23,18 @@ public class SensorData {
     public SensorData() {
     }
 
+    public SensorData(String id,
+                      SensorType type,
+                      LocalDateTime receivedTimestamp,
+                      LocalDateTime registeredTimestamp,
+                      String value) {
+        this.id = id;
+        this.type = type;
+        this.receivedTimestamp = receivedTimestamp;
+        this.registeredTimestamp = registeredTimestamp;
+        this.value = value;
+    }
+
     public String getId() {
         return id;
     }

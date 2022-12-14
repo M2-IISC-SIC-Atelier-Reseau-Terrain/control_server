@@ -43,6 +43,13 @@ public class WebSocketChannelInterceptor implements ChannelInterceptor {
         Optional.ofNullable(accessor)
                 .filter(a -> StompCommand.CONNECT.equals(a.getCommand()))
                 .ifPresent(a -> {
+                    // If the user is already here, we are already authenticated
+                    Object simpUser = a.getHeader("simpUser");
+                    if (simpUser instanceof UsernamePasswordAuthenticationToken user) {
+                        // Already connected
+                        return;
+                    }
+
                     String token = a.getFirstNativeHeader(jwtProperties.header());
 
                     String userName = jwtTokenService.getUsernameFromToken(token);

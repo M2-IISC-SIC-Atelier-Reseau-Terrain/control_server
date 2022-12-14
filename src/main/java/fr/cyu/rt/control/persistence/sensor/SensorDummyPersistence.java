@@ -1,11 +1,13 @@
 package fr.cyu.rt.control.persistence.sensor;
 
 import fr.cyu.rt.control.business.sensor.Sensor;
+import fr.cyu.rt.control.business.sensor.SensorData;
 import fr.cyu.rt.control.business.sensor.SensorType;
 import fr.cyu.rt.control.dao.sensor.SensorDao;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,6 +43,19 @@ public class SensorDummyPersistence implements SensorDao {
                 "camera1", cameraSensor,
                 "button1", buttonSensor,
                 "distance1", distanceSensor
+        );
+    }
+
+    @Override
+    public List<SensorData> getSensorData(String sensorId, long durationS) {
+        return List.of(
+                new SensorData(
+                        "button1",
+                        SensorType.BUTTON,
+                        LocalDateTime.now().minusSeconds(1),
+                        LocalDateTime.now(),
+                        "0.0"
+                )
         );
     }
 }

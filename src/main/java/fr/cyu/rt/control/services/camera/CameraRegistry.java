@@ -1,5 +1,7 @@
 package fr.cyu.rt.control.services.camera;
 
+import org.springframework.stereotype.Component;
+
 /**
  * A component that will keep the last camera image received.
  *
@@ -7,8 +9,16 @@ package fr.cyu.rt.control.services.camera;
  *
  * @author Aldric Vitali Silvestre
  */
+@Component
 public class CameraRegistry {
 
-    // TODO fill camera registry
+    private byte[] imageBinary = null;
 
+    public byte[] getImageBinary() {
+        return imageBinary;
+    }
+
+    public void setImageBinary(byte[] imageBinary) {
+        this.imageBinary = imageBinary;
+    }
 }

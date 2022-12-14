@@ -2,6 +2,8 @@ package fr.cyu.rt.control.services.sensor;
 
 import fr.cyu.rt.control.business.sensor.Sensor;
 import fr.cyu.rt.control.dao.sensor.SensorDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +23,8 @@ import java.util.Optional;
 @Component
 public class SensorRegistry {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SensorRegistry.class);
+
     @Autowired
     private SensorDao sensorDao;
 
@@ -29,6 +33,7 @@ public class SensorRegistry {
 
     @PostConstruct
     public void initSensorStates() {
+        LOGGER.info("==== GET SENSOR STATES ====");
         sensorById = sensorDao.getCurrentSensorStates();
         sensors = sensorById.values().stream().toList();
     }
@@ -40,7 +45,5 @@ public class SensorRegistry {
     public List<Sensor> getSensors() {
         return sensors;
     }
-
-    // TODO update sensor data
 
 }
