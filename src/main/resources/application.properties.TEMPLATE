@@ -4,7 +4,7 @@
 jwt.header=Authorization
 jwt.expiration=604800
 jwt.signatureAlgorithm=RS512
-jwt.keystore.path=./jwt/rt_jwt.jks
+jwt.keystore.path=classpath:jwt/rt_control.jks
 jwt.keystore.alias=rt_jwt
 jwt.keystore.keyStorePassword=6KExCbwvG5928PaPke7k
 jwt.keystore.aliasPassword=6KExCbwvG5928PaPke7k
