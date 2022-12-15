@@ -24,7 +24,6 @@ public record RespSensor(
              sensor.isActive(),
              sensor.isOnAlert(),
              sensor.getLastUpdateTime(),
-             // TODO better handle when we know how we have those values
              sensor.getValue()
         );
     }

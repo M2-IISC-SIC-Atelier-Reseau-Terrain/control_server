@@ -7,10 +7,7 @@ import fr.cyu.rt.control.dao.sensor.SensorDao;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Aldric Vitali Silvestre
@@ -18,10 +15,11 @@ import java.util.Map;
 @Repository
 public class SensorDummyPersistence implements SensorDao {
 
-    private List<SensorData> sensorDataList = new ArrayList<>();
+    private static List<SensorData> sensorDataList = new ArrayList<>();
 
-    @Override
-    public Map<String, Sensor> getCurrentSensorStates() {
+    private static Map<String, Sensor> sensors;
+
+    static {
         Sensor cameraSensor = new Sensor("0",
                                          SensorType.CAMERA,
                                          true,
@@ -37,13 +35,13 @@ public class SensorDummyPersistence implements SensorDao {
                                          "0"
         );
         Sensor distanceSensor = new Sensor("2",
-                                         SensorType.DISTANCE,
-                                         true,
-                                         false,
-                                         LocalDateTime.now().minusMinutes(5),
-                                         "0.00014"
+                                           SensorType.DISTANCE,
+                                           true,
+                                           false,
+                                           LocalDateTime.now().minusMinutes(5),
+                                           "0.00014"
         );
-        return Map.of(
+        sensors = Map.of(
                 "0", cameraSensor,
                 "1", buttonSensor,
                 "2", distanceSensor
@@ -51,8 +49,20 @@ public class SensorDummyPersistence implements SensorDao {
     }
 
     @Override
+    public Map<String, Sensor> getCurrentSensorStates() {
+        return sensors;
+    }
+
+    @Override
     public List<SensorData> getSensorData(String sensorId, long durationS) {
         return Collections.unmodifiableList(sensorDataList);
+    }
+
+    @Override
+    public Optional<SensorData> findLastSensorDataOf(String sensorId) {
+        return sensorDataList.stream()
+                .filter(s -> s.getSensorId().equals(sensorId))
+                .max(Comparator.comparing(SensorData::getReceivedTimestamp));
     }
 
     @Override

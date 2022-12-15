@@ -23,7 +23,7 @@ public class CameraStorage {
     private static final Logger LOGGER = LoggerFactory.getLogger(CameraStorage.class);
 
     private static final DateTimeFormatter DATE_FILENAME_FORMAT =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss_SSSS");
+            DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss-SSSS");
 
     @Autowired
     private CameraRegistry cameraRegistry;

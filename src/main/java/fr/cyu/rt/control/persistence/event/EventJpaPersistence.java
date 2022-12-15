@@ -1,6 +1,7 @@
 package fr.cyu.rt.control.persistence.event;
 
 import fr.cyu.rt.control.business.event.Event;
+import fr.cyu.rt.control.business.event.EventType;
 import fr.cyu.rt.control.business.event.QEvent;
 import fr.cyu.rt.control.dao.event.EventDao;
 import fr.cyu.rt.control.persistence.jpa.BaseJpaRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Aldric Vitali Silvestre
@@ -40,6 +42,33 @@ public class EventJpaPersistence extends BaseJpaRepository<Event, Long> implemen
                 .selectFrom(EVENT)
                 .orderBy(EVENT.timestampReceived.asc())
                 .fetch();
+    }
+
+    @Override
+    public boolean isSensorAlerted(String sensorId) {
+        // Retrieve last alert decision and last alert on sensor id
+        LocalDateTime lastDecisionTime = queryDslFactory()
+                .selectFrom(EVENT)
+                .where(EVENT.eventType.eq(EventType.ALERT_DECISION))
+                .orderBy(EVENT.timestampReceived.desc())
+                .stream()
+                .findFirst()
+                .map(Event::getTimestampReceived)
+                .orElse(LocalDateTime.MIN);
+
+        Optional<Event> lastAlertOnSensor = queryDslFactory()
+                .selectFrom(EVENT)
+                .where(EVENT.eventType.eq(EventType.ALERT),
+                       EVENT.sensorId.eq(sensorId)
+                )
+                .orderBy(EVENT.timestampReceived.desc())
+                .stream()
+                .findFirst();
+
+        return lastAlertOnSensor
+                .map(Event::getTimestampReceived)
+                .filter(t -> lastDecisionTime.isBefore(t))
+                .isPresent();
     }
 
     @Override

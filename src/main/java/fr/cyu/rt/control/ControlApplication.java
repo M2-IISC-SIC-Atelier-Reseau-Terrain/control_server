@@ -6,6 +6,7 @@ import fr.cyu.rt.control.business.user.User;
 import fr.cyu.rt.control.business.user.UserRole;
 import fr.cyu.rt.control.config.ConfigPackageMarker;
 import fr.cyu.rt.control.config.properties.PropertiesPackageMarker;
+import fr.cyu.rt.control.dao.user.UserDao;
 import fr.cyu.rt.control.persistence.PersistencePackageMarker;
 import fr.cyu.rt.control.security.SecurityPackageMarker;
 import fr.cyu.rt.control.services.ServicePackageMarker;
@@ -42,6 +43,9 @@ public class ControlApplication {
     private UserService userService;
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
     private ConnectedUserRegistry userRegistry;
 
     public static void main(String[] args) {
@@ -51,22 +55,24 @@ public class ControlApplication {
     @Bean
     public CommandLineRunner commandLineRunner() {
         return args -> {
-            LOGGER.info("==== INIT DATABASE ====");
-            userService.createUser("user",
-                                   "123456",
-                                   "bernard.carpette@yopmail.com",
-                                   UserRole.USER
-            );
-            userService.createUser("admin",
-                                   "123456",
-                                   "billy@yopmail.com",
-                                   UserRole.ADMIN
-            );
-            userService.createUser("com",
-                                   "123456",
-                                   "com@yopmail.com",
-                                   UserRole.COM
-            );
+            if (userDao.findAll().isEmpty()) {
+                LOGGER.info("==== INIT DATABASE ====");
+                userService.createUser("user",
+                                       "123456",
+                                       "bernard.carpette@yopmail.com",
+                                       UserRole.USER
+                );
+                userService.createUser("admin",
+                                       "123456",
+                                       "billy@yopmail.com",
+                                       UserRole.ADMIN
+                );
+                userService.createUser("com",
+                                       "123456",
+                                       "com@yopmail.com",
+                                       UserRole.COM
+                );
+            }
             userRegistry.init();
         };
     }

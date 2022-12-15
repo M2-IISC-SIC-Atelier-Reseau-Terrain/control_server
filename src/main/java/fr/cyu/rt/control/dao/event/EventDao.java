@@ -13,5 +13,7 @@ public interface EventDao {
 
     List<Event> getAll();
 
+    boolean isSensorAlerted(String sensorId);
+
     Event save(Event event);
 }

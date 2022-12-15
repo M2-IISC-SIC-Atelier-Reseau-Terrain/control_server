@@ -4,6 +4,7 @@ import fr.cyu.rt.control.api.rest.alert.AlertController;
 import fr.cyu.rt.control.api.stomp.house.alert.HouseAlertMessageController;
 import fr.cyu.rt.control.business.event.Event;
 import fr.cyu.rt.control.business.event.EventType;
+import fr.cyu.rt.control.business.event.types.AlertEndEvent;
 import fr.cyu.rt.control.business.event.types.AlertStartEvent;
 import fr.cyu.rt.control.business.event.types.UserControlEvent;
 import fr.cyu.rt.control.business.event.types.UserEndControlEvent;
@@ -37,10 +38,10 @@ public class EventService {
      * Store the alert event sent by the house. This does not handle the
      */
     public void onAlertReceived(HouseAlertMessageController.Alert alert) {
-        if (sensorRegistry.streamAlertedSensors().findAny().isEmpty()) {
-            throw new IllegalArgumentException("No sensor is alerted");
-        }
-        EventType eventType = alert.eventType().getEventType();
+//        if (sensorRegistry.streamAlertedSensors().findAny().isEmpty()) {
+//            throw new IllegalArgumentException("No sensor is alerted");
+//        }
+        EventType eventType = alert.alertType().getEventType();
         Event event = switch (eventType) {
             case ALERT -> createAlertEvent(alert);
             case ALERT_END -> createEndAlertEvent(alert);
@@ -52,18 +53,15 @@ public class EventService {
     private Event createAlertEvent(HouseAlertMessageController.Alert alert) {
         AlertStartEvent event = new AlertStartEvent(alert);
         event.setSensorId(alert.sensorId());
-        if (alert.sensorType() == SensorType.CAMERA) {
-            // Store the image
-            String imagePath = cameraStorage.registerLastImage();
-            event.setValueStr(imagePath);
-            event.setImagePath(imagePath);
-        } else {
-            event.setValueStr(alert.value().orElse(""));
-        }
+        // Store the image
+        String imagePath = cameraStorage.registerLastImage();
+        event.setImagePath(imagePath);
+        event.setValueStr(alert.value().orElse(""));
         return event;
     }
 
     private Event createEndAlertEvent(HouseAlertMessageController.Alert alert) {
+        AlertEndEvent event = new AlertEndEvent(alert);
         return null;
     }
 

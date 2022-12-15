@@ -2,6 +2,8 @@ package fr.cyu.rt.control.services.camera;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
+
 /**
  * A component that will keep the last camera image received.
  *
@@ -15,6 +17,11 @@ public class CameraRegistry {
     private boolean isUserControlling = false;
 
     private byte[] imageBinary = null;
+
+    public CameraRegistry() {
+        imageBinary = new byte[640 * 480];
+        new Random().nextBytes(imageBinary);
+    }
 
     public synchronized byte[] getImageBinary() {
         return imageBinary;

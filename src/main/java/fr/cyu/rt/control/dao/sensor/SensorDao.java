@@ -5,6 +5,7 @@ import fr.cyu.rt.control.business.sensor.SensorData;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Aldric Vitali Silvestre
@@ -26,6 +27,8 @@ public interface SensorDao {
      * @return
      */
     List<SensorData> getSensorData(String sensorId, long durationS);
+
+    Optional<SensorData> findLastSensorDataOf(String sensorId);
 
     SensorData saveData(SensorData sensorData);
 }

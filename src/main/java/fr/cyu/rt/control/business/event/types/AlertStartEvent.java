@@ -15,16 +15,19 @@ public class AlertStartEvent extends Event {
 
     private String imagePath;
 
+    public AlertStartEvent(String imagePath) {
+        super(EventType.ALERT);
+    }
+
     public AlertStartEvent() {
         this("");
     }
 
     public AlertStartEvent(HouseAlertMessageController.Alert alert) {
-        // TODO
-    }
-
-    public AlertStartEvent(String imagePath) {
-        super(EventType.ALERT);
+        this("");
+        setSensorId(alert.sensorId());
+        setSensorType(alert.sensorType());
+        setTimestampReceived(alert.timestamp());
     }
 
     public String getImagePath() {

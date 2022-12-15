@@ -42,7 +42,7 @@ public class HouseAlertMessageController {
      * Has automatically the EventType ALERT
      */
     public record Alert(
-            AlertType eventType,
+            AlertType alertType,
             String sensorId,
             SensorType sensorType,
             LocalDateTime timestamp,

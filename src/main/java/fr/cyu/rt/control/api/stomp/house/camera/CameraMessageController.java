@@ -25,15 +25,15 @@ public class CameraMessageController {
 
     private Random random = new Random();
 
-    // TODO create message path for receiving and sending images
     @MessageMapping("/house/camera")
     public void receiveCameraImage(Message<?> message) throws Exception {
+//        message.
         // TODO receive binary data ?
         // TODO send to /topic/camera
         // TODO Always save if in alert ?
     }
 
-    @Scheduled(fixedDelay = 200, timeUnit = TimeUnit.MILLISECONDS)
+//    @Scheduled(fixedDelay = 200, timeUnit = TimeUnit.MILLISECONDS)
     public void sendRandomImage() throws Exception {
 //        LOGGER.trace("Send random image");
         var binaryData = new byte[640 * 480];
