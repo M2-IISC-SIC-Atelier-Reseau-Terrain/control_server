@@ -27,4 +27,5 @@ public interface SensorDao {
      */
     List<SensorData> getSensorData(String sensorId, long durationS);
 
+    SensorData saveData(SensorData sensorData);
 }

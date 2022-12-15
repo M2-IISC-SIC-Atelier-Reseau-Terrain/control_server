@@ -22,7 +22,7 @@ public class RespOneEvent {
         this.eventType = event.getEventType();
         this.sensorId = event.getSensorId();
         this.timestamp = event.getTimestampReceived();
-        this.value = event.getValue();
+        this.value = event.getValueStr();
     }
 
     public EventType getEventType() {

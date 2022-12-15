@@ -1,4 +1,4 @@
-package fr.cyu.rt.control.api.stomp.event;
+package fr.cyu.rt.control.api.stomp.user.event;
 
 import fr.cyu.rt.control.business.event.EventType;
 import fr.cyu.rt.control.business.sensor.SensorType;

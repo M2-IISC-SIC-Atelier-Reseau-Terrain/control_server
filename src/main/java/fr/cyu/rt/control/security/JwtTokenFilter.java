@@ -56,7 +56,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         if (StringUtils.isBlank(authToken)) {
             return Optional.empty();
         }
-        LOGGER.debug("Found token from headers");
+        LOGGER.trace("Found token from headers");
         return Optional.of(authToken);
     }
 

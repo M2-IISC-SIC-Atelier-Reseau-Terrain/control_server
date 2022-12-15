@@ -7,6 +7,8 @@ import fr.cyu.rt.control.dao.sensor.SensorDao;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -16,23 +18,25 @@ import java.util.Map;
 @Repository
 public class SensorDummyPersistence implements SensorDao {
 
+    private List<SensorData> sensorDataList = new ArrayList<>();
+
     @Override
     public Map<String, Sensor> getCurrentSensorStates() {
-        Sensor cameraSensor = new Sensor("camera1",
+        Sensor cameraSensor = new Sensor("0",
                                          SensorType.CAMERA,
                                          true,
                                          false,
                                          LocalDateTime.now(),
                                          "1.0,1.0"
         );
-        Sensor buttonSensor = new Sensor("button1",
+        Sensor buttonSensor = new Sensor("1",
                                          SensorType.BUTTON,
                                          true,
                                          false,
                                          LocalDateTime.now().minusMinutes(2),
                                          "0"
         );
-        Sensor distanceSensor = new Sensor("distance1",
+        Sensor distanceSensor = new Sensor("2",
                                          SensorType.DISTANCE,
                                          true,
                                          false,
@@ -40,22 +44,25 @@ public class SensorDummyPersistence implements SensorDao {
                                          "0.00014"
         );
         return Map.of(
-                "camera1", cameraSensor,
-                "button1", buttonSensor,
-                "distance1", distanceSensor
+                "0", cameraSensor,
+                "1", buttonSensor,
+                "2", distanceSensor
         );
     }
 
     @Override
     public List<SensorData> getSensorData(String sensorId, long durationS) {
-        return List.of(
-                new SensorData(
-                        "button1",
-                        SensorType.BUTTON,
-                        LocalDateTime.now().minusSeconds(1),
-                        LocalDateTime.now(),
-                        "0.0"
-                )
-        );
+        return Collections.unmodifiableList(sensorDataList);
+    }
+
+    @Override
+    public SensorData saveData(SensorData sensorData) {
+        long lastId = 0;
+        if (!sensorDataList.isEmpty()) {
+            lastId = sensorDataList.get(sensorDataList.size() - 1).getId();
+        }
+        sensorData.setId(lastId + 1);
+        sensorDataList.add(sensorData);
+        return sensorData;
     }
 }

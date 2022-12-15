@@ -23,5 +23,5 @@ spring.jpa.show-sql = true
 camera.storage.root_path=[path/to/storage]
 
 # ==== LOG ====
-logging.level.fr.cyu.rt.test_websockets=TRACE
+logging.level.fr.cyu.rt.control=TRACE
 

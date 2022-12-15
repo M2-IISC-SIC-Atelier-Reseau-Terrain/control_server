@@ -9,7 +9,10 @@ import fr.cyu.rt.control.config.properties.PropertiesPackageMarker;
 import fr.cyu.rt.control.persistence.PersistencePackageMarker;
 import fr.cyu.rt.control.security.SecurityPackageMarker;
 import fr.cyu.rt.control.services.ServicePackageMarker;
+import fr.cyu.rt.control.services.user.ConnectedUserRegistry;
 import fr.cyu.rt.control.services.user.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,8 +34,15 @@ import org.springframework.context.annotation.ComponentScan;
 @ConfigurationPropertiesScan(basePackageClasses = PropertiesPackageMarker.class)
 public class ControlApplication {
 
+    //
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ControlApplication.class);
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ConnectedUserRegistry userRegistry;
 
     public static void main(String[] args) {
         SpringApplication.run(ControlApplication.class, args);
@@ -41,6 +51,7 @@ public class ControlApplication {
     @Bean
     public CommandLineRunner commandLineRunner() {
         return args -> {
+            LOGGER.info("==== INIT DATABASE ====");
             userService.createUser("user",
                                    "123456",
                                    "bernard.carpette@yopmail.com",
@@ -56,6 +67,7 @@ public class ControlApplication {
                                    "com@yopmail.com",
                                    UserRole.COM
             );
+            userRegistry.init();
         };
     }
 }

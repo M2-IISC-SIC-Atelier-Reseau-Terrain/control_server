@@ -17,6 +17,9 @@ import java.time.format.DateTimeFormatter;
 @Service
 public class CameraStorage {
 
+    public static final int WIDTH = 640;
+    public static final int HEIGHT = 480;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CameraStorage.class);
 
     private static final DateTimeFormatter DATE_FILENAME_FORMAT =
@@ -60,7 +63,7 @@ public class CameraStorage {
         }
         byte[] data = cameraRegistry.getImageBinary();
         // TODO what is the format ?
-        imageWriter.saveRawGreyscaleImage(400, 400, data, file);
+        imageWriter.saveRawGreyscaleImage(WIDTH, HEIGHT, data, file);
         return file.toPath().toAbsolutePath().toString();
     }
 }

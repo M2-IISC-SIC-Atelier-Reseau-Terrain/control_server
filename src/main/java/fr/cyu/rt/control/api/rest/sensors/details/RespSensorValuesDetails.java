@@ -29,7 +29,7 @@ public class RespSensorValuesDetails extends RespSensorDetails {
             String value
     ){
         public Data(SensorData sensorData) {
-            this(sensorData.getReceivedTimestamp(), sensorData.getValue());
+            this(sensorData.getReceivedTimestamp(), sensorData.getValueStr());
         }
     }
 }

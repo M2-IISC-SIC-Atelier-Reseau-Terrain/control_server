@@ -11,6 +11,7 @@ public enum EventType {
     USER_DEACTIVATION(false),
     USER_CONTROL(false),
     USER_END_CONTROL(false),
+    LOST_CONNECTION(false)
     ;
 
     private boolean sentByHouse;

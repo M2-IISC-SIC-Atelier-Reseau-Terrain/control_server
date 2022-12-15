@@ -32,6 +32,7 @@ public class WebsocketEventListener {
         // TODO if the user is a COM one, activate catching here ?
 
         Long userId = userDetails.getId();
+        LOGGER.info("User \"{}\" connected", userDetails.getUsername());
         if (userRegistry.isUserConnected(userId)) {
             LOGGER.warn("The same user ({}) is already connected on websocket, are there two connections ?",
                         userDetails.getUsername()
@@ -45,6 +46,7 @@ public class WebsocketEventListener {
     public void onDisconnection(SessionDisconnectEvent event) {
         JwtUserDetails userDetails = retrieveUserDetails(event);
         Long id = userDetails.getId();
+        LOGGER.info("User \"{}\" disconnected", userDetails.getUsername());
         if (!userRegistry.isUserConnected(id)) {
             LOGGER.warn("The same user ({}) is already disconnected on websocket, are there two connections ?",
                         userDetails.getUsername()

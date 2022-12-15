@@ -9,9 +9,9 @@ import javax.persistence.Entity;
  * @author Aldric Vitali Silvestre
  */
 @Entity
-public class UserDeactivation extends Event {
+public class UserDeactivationEvent extends Event {
 
-    public UserDeactivation() {
+    public UserDeactivationEvent() {
         super(EventType.USER_DEACTIVATION);
     }
 }

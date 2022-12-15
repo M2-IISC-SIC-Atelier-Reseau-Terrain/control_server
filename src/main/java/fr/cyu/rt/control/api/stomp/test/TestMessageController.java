@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * @author Aldric Vitali Silvestre
  */
 @Controller
-public class TestMessageController {
+public class  TestMessageController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TestMessageController.class);
 

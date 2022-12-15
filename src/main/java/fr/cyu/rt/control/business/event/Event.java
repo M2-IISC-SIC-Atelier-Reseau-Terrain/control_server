@@ -13,9 +13,6 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Event {
 
-    // TODO create other events implementations
-    // TODO set implems types directly
-
     @Id
     @GeneratedValue
     private Long id;
@@ -23,16 +20,16 @@ public abstract class Event {
     @Enumerated(EnumType.STRING)
     private EventType eventType;
 
-    private String sensorId;
+    private String sensorId = "";
 
     @Enumerated(EnumType.STRING)
-    private SensorType sensorType;
+    private SensorType sensorType = SensorType.NONE;
 
-    private LocalDateTime timestampReceived;
+    private LocalDateTime timestampReceived = LocalDateTime.now();
 
     private LocalDateTime timestampStored = LocalDateTime.now();
 
-    private String value;
+    private String valueStr = "";
 
     public Event() {
     }
@@ -89,12 +86,12 @@ public abstract class Event {
         this.timestampStored = timestampStored;
     }
 
-    public String getValue() {
-        return value;
+    public String getValueStr() {
+        return valueStr;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setValueStr(String valueStr) {
+        this.valueStr = valueStr;
     }
 
     @Override
@@ -110,13 +107,13 @@ public abstract class Event {
                                                                                               event.sensorId
         ) && sensorType == event.sensorType && Objects.equals(timestampReceived,
                                                               event.timestampReceived
-        ) && Objects.equals(timestampStored, event.timestampStored) && Objects.equals(value,
-                                                                                      event.value
+        ) && Objects.equals(timestampStored, event.timestampStored) && Objects.equals(valueStr,
+                                                                                      event.valueStr
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, eventType, sensorId, sensorType, timestampReceived, timestampStored, value);
+        return Objects.hash(id, eventType, sensorId, sensorType, timestampReceived, timestampStored, valueStr);
     }
 }

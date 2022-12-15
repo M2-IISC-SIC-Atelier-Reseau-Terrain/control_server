@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * A component that will keep track of the current sensor's state.
@@ -39,6 +40,7 @@ public class SensorRegistry {
     }
 
     public Optional<Sensor> getSensor(String sensorId) {
+        LOGGER.trace("Try getting sensor with id {}", sensorId);
         return Optional.ofNullable(sensorById.get(sensorId));
     }
 
@@ -46,4 +48,8 @@ public class SensorRegistry {
         return sensors;
     }
 
+    public Stream<Sensor> streamAlertedSensors() {
+        return sensors.stream()
+                .filter(Sensor::isOnAlert);
+    }
 }

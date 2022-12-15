@@ -40,6 +40,4 @@ public class SensorsController {
         return ResponseEntity.ok(sensorService.getDetails(sensorId, type, optionalDurationS));
     }
 
-    // TODO get sensor unique avec params
-    // Besoin de créer les events d'abord
 }

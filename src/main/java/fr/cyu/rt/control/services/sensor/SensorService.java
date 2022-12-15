@@ -3,6 +3,7 @@ package fr.cyu.rt.control.services.sensor;
 import fr.cyu.rt.control.api.rest.sensors.details.RespSensorDetails;
 import fr.cyu.rt.control.api.rest.sensors.details.RespSensorEventsDetails;
 import fr.cyu.rt.control.api.rest.sensors.details.RespSensorValuesDetails;
+import fr.cyu.rt.control.api.stomp.house.sensor.SensorDataMessage;
 import fr.cyu.rt.control.business.event.Event;
 import fr.cyu.rt.control.business.event.EventType;
 import fr.cyu.rt.control.business.event.types.AlertDecisionEvent;
@@ -32,6 +33,19 @@ public class SensorService {
 
     @Autowired
     private EventDao eventDao;
+
+    public void onDataReceived(SensorDataMessage message) {
+        sensorRegistry.getSensor(message.sensorId())
+                .orElseThrow(() -> new NoSuchElementException("Cannot find sensor by id"))
+                .setValue(message.value());
+        SensorData sensorData = new SensorData(
+                message.sensorId(),
+                message.sensorType(),
+                message.timestamp(),
+                message.value()
+        );
+        sensorDao.saveData(sensorData);
+    }
 
     public RespSensorDetails getDetails(String sensorId, String type, Optional<Long> optionalDurationS) {
         long durationS = optionalDurationS.orElse(5l);

@@ -1,7 +1,5 @@
 package fr.cyu.rt.control.business.sensor;
 
-import org.springframework.stereotype.Indexed;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -30,21 +28,19 @@ public class SensorData {
 
     private LocalDateTime registeredTimestamp = LocalDateTime.now();
 
-    private String value;
+    private String valueStr;
 
     public SensorData() {
     }
 
     public SensorData(String sensorId,
                       SensorType type,
-                      LocalDateTime receivedTimestamp,
                       LocalDateTime registeredTimestamp,
                       String value) {
         this.sensorId = sensorId;
         this.type = type;
-        this.receivedTimestamp = receivedTimestamp;
         this.registeredTimestamp = registeredTimestamp;
-        this.value = value;
+        this.valueStr = value;
     }
 
     public Long getId() {
@@ -87,12 +83,12 @@ public class SensorData {
         this.registeredTimestamp = registeredTimestamp;
     }
 
-    public String getValue() {
-        return value;
+    public String getValueStr() {
+        return valueStr;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setValueStr(String valueStr) {
+        this.valueStr = valueStr;
     }
 
     @Override
@@ -110,11 +106,11 @@ public class SensorData {
                             that.receivedTimestamp
         ) && type == that.type && Objects.equals(registeredTimestamp,
                                                  that.registeredTimestamp
-        ) && Objects.equals(value, that.value);
+        ) && Objects.equals(valueStr, that.valueStr);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, sensorId, receivedTimestamp, type, registeredTimestamp, value);
+        return Objects.hash(id, sensorId, receivedTimestamp, type, registeredTimestamp, valueStr);
     }
 }

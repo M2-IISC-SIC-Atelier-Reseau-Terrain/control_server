@@ -15,7 +15,7 @@ public record RespSensor(
         boolean active,
         boolean alert,
         LocalDateTime lastUpdate,
-        Map<String, Object> values
+        String value
 ) {
 
     public RespSensor(Sensor sensor) {
@@ -25,7 +25,7 @@ public record RespSensor(
              sensor.isOnAlert(),
              sensor.getLastUpdateTime(),
              // TODO better handle when we know how we have those values
-             Map.of("value", sensor.getValue())
+             sensor.getValue()
         );
     }
 }
