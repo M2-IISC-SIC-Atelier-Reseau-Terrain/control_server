@@ -10,7 +10,7 @@ public enum EventType {
     USER_ACTIVATION(false),
     USER_DEACTIVATION(false),
     USER_CONTROL(false),
-    USER_END_CONTROL(false),
+    USER_CONTROL_END(false),
     LOST_CONNECTION(false)
     ;
 

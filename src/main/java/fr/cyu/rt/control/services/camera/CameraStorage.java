@@ -62,6 +62,7 @@ public class CameraStorage {
             LOGGER.warn("File \"{}\" already exists ! Will be replaced", file.getPath());
         }
         byte[] data = cameraRegistry.getImageBinary();
+        LOGGER.info("Received data of length {}", data.length);
         imageWriter.saveRawGreyscaleImage(WIDTH, HEIGHT, data, file);
         return file.toPath().toAbsolutePath().toString();
     }

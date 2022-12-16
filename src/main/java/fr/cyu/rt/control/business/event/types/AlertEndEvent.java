@@ -18,6 +18,5 @@ public class AlertEndEvent extends Event {
 
     public AlertEndEvent(HouseAlertMessageController.Alert alert) {
         this();
-        
     }
 }

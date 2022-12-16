@@ -48,6 +48,10 @@ public class SensorRegistry {
         return sensors;
     }
 
+    public void removeAlertForSensors() {
+        sensors.forEach(s -> s.setOnAlert(false));
+    }
+
     public Stream<Sensor> streamAlertedSensors() {
         return sensors.stream()
                 .filter(Sensor::isOnAlert);

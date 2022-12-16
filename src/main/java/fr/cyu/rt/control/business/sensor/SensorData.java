@@ -35,11 +35,11 @@ public class SensorData {
 
     public SensorData(String sensorId,
                       SensorType type,
-                      LocalDateTime registeredTimestamp,
+                      LocalDateTime receivedTimestamp,
                       String value) {
         this.sensorId = sensorId;
         this.type = type;
-        this.registeredTimestamp = registeredTimestamp;
+        this.receivedTimestamp = receivedTimestamp;
         this.valueStr = value;
     }
 

@@ -35,9 +35,10 @@ public class SensorService {
     private EventDao eventDao;
 
     public void onDataReceived(SensorDataMessage message) {
-        sensorRegistry.getSensor(message.sensorId())
-                .orElseThrow(() -> new NoSuchElementException("Cannot find sensor by id"))
-                .setValue(message.value());
+        Sensor sensor = sensorRegistry.getSensor(message.sensorId())
+                .orElseThrow(() -> new NoSuchElementException("Cannot find sensor by id"));
+        sensor.setValue(message.value());
+        sensor.setLastUpdateTime(LocalDateTime.now());
         SensorData sensorData = new SensorData(
                 message.sensorId(),
                 message.sensorType(),

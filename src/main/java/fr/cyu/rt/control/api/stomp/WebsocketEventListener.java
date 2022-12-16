@@ -1,6 +1,10 @@
 package fr.cyu.rt.control.api.stomp;
 
+import fr.cyu.rt.control.business.user.User;
+import fr.cyu.rt.control.business.user.UserRole;
 import fr.cyu.rt.control.security.JwtUserDetails;
+import fr.cyu.rt.control.services.camera.CameraRegistry;
+import fr.cyu.rt.control.services.event.EventService;
 import fr.cyu.rt.control.services.user.ConnectedUserRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +28,12 @@ public class WebsocketEventListener {
 
     @Autowired
     private ConnectedUserRegistry userRegistry;
+
+    @Autowired
+    private CameraRegistry cameraRegistry;
+
+    @Autowired
+    private EventService eventService;
 
     @EventListener
     public void onConnection(SessionConnectedEvent event) {
@@ -51,6 +61,14 @@ public class WebsocketEventListener {
             LOGGER.warn("The same user ({}) is already disconnected on websocket, are there two connections ?",
                         userDetails.getUsername()
             );
+        }
+        // If this is a user, we have to handle the end control
+        User user = userDetails.getUser();
+        if (user.getRole() == UserRole.USER) {
+            if (cameraRegistry.isUserControlling()) {
+                LOGGER.debug("Deactivate the camera control");
+                eventService.onCameraControlEnd();
+            }
         }
         userRegistry.onUserDisconnected(id);
     }

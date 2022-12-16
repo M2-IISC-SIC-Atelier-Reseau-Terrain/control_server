@@ -4,10 +4,7 @@ import fr.cyu.rt.control.api.rest.alert.AlertController;
 import fr.cyu.rt.control.api.stomp.house.alert.HouseAlertMessageController;
 import fr.cyu.rt.control.business.event.Event;
 import fr.cyu.rt.control.business.event.EventType;
-import fr.cyu.rt.control.business.event.types.AlertEndEvent;
-import fr.cyu.rt.control.business.event.types.AlertStartEvent;
-import fr.cyu.rt.control.business.event.types.UserControlEvent;
-import fr.cyu.rt.control.business.event.types.UserEndControlEvent;
+import fr.cyu.rt.control.business.event.types.*;
 import fr.cyu.rt.control.business.sensor.SensorType;
 import fr.cyu.rt.control.dao.event.EventDao;
 import fr.cyu.rt.control.services.camera.CameraRegistry;
@@ -62,11 +59,13 @@ public class EventService {
 
     private Event createEndAlertEvent(HouseAlertMessageController.Alert alert) {
         AlertEndEvent event = new AlertEndEvent(alert);
-        return null;
+        return eventDao.save(event);
     }
 
     public void onAlertDecision(AlertController.EndAlertRequest request) {
-        // TODO alert decision
+        AlertDecisionEvent alertDecisionEvent = new AlertDecisionEvent(request);
+        sensorRegistry.removeAlertForSensors();
+        eventDao.save(alertDecisionEvent);
     }
 
     public void onCameraControlStart() {
