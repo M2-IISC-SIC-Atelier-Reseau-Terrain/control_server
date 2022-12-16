@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * @author Aldric Vitali Silvestre
  */
-@Repository
+//@Repository
 public class SensorDummyPersistence implements SensorDao {
 
     private static List<SensorData> sensorDataList = new ArrayList<>();

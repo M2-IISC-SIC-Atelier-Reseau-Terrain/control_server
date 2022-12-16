@@ -38,6 +38,13 @@ public class HouseAlertMessageController {
         );
     }
 
+//    @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.SECONDS)
+//    public void simulateAlert() throws Exception {
+//        LOGGER.debug("simulate alert");
+//        Alert alert = new Alert(AlertType.ALERT, "0", SensorType.CAMERA, LocalDateTime.now(), Optional.empty());
+//        eventService.onAlertReceived(alert);
+//    }
+
     /**
      * Has automatically the EventType ALERT
      */

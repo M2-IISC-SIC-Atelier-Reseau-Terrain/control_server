@@ -16,4 +16,8 @@ public class RespAllEvents {
                 .map(RespOneEvent::new)
                 .toList();
     }
+
+    public List<RespOneEvent> getEvents() {
+        return events;
+    }
 }

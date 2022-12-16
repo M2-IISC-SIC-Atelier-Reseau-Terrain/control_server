@@ -19,8 +19,7 @@ import java.util.Optional;
 /**
  * @author Aldric Vitali Silvestre
  */
-// TODO implement the sensor persistence for real
-//@Repository
+@Repository
 public class SensorJpaPersistence extends BaseJpaRepository<SensorData, Long> implements SensorDao {
 
     @Autowired

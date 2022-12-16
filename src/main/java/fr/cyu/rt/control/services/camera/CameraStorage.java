@@ -56,13 +56,12 @@ public class CameraStorage {
             LOGGER.debug("Create folder \"{}\"in camera root path", folder.getName());
             folder.mkdir();
         }
-        String imageFilename = currentTimestamp.format(DATE_FILENAME_FORMAT);
+        String imageFilename = currentTimestamp.format(DATE_FILENAME_FORMAT) + ".png";
         File file = folderPath.resolve(imageFilename).toFile();
         if (file.exists()) {
             LOGGER.warn("File \"{}\" already exists ! Will be replaced", file.getPath());
         }
         byte[] data = cameraRegistry.getImageBinary();
-        // TODO what is the format ?
         imageWriter.saveRawGreyscaleImage(WIDTH, HEIGHT, data, file);
         return file.toPath().toAbsolutePath().toString();
     }

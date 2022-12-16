@@ -20,6 +20,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -46,6 +47,16 @@ public class WebSecurityConfiguration {
         authenticationManagerBuilder
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder);
+    }
+
+    @Bean
+    public ServletServerContainerFactoryBean createServletServerContainerFactoryBean() {
+        ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
+        container.setMaxTextMessageBufferSize(2048 * 2048);
+        container.setMaxSessionIdleTimeout(2048L * 2048L);
+        container.setAsyncSendTimeout(2048L * 2048L);
+        container.setMaxBinaryMessageBufferSize(2048 * 2048);
+        return container;
     }
 
     @Bean
