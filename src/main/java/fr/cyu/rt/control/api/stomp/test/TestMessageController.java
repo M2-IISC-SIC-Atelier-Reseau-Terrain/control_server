@@ -14,6 +14,7 @@ import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.util.HtmlUtils;
 
 import java.time.LocalDateTime;
+import java.util.Base64;
 
 /**
  * @author Aldric Vitali Silvestre
@@ -47,7 +48,8 @@ public class  TestMessageController {
     public void receiveCameraImage(TestReqMessage message) throws Exception {
         LOGGER.debug("Camera image received");
         String payload = message.content();
-        System.out.println("Received byte array of " + payload);
+        byte[] data = Base64.getDecoder().decode(payload);
+        System.out.println("Received byte array of " + data.length);
     }
 
 

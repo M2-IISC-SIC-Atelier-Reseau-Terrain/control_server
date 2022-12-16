@@ -30,7 +30,6 @@ public class CameraRegistry {
 
     public CameraRegistry() {
         imageBinary = new byte[640 * 480];
-        new Random().nextBytes(imageBinary);
     }
 
     public byte[] updateFromBase64(String base64Str) {

@@ -1,6 +1,7 @@
 package fr.cyu.rt.control.business.event;
 
 import fr.cyu.rt.control.business.sensor.SensorType;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,7 +15,8 @@ import java.util.Objects;
 public abstract class Event {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private Long id;
 
     @Enumerated(EnumType.STRING)

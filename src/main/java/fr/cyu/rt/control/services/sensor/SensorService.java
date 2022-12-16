@@ -11,9 +11,12 @@ import fr.cyu.rt.control.business.sensor.Sensor;
 import fr.cyu.rt.control.business.sensor.SensorData;
 import fr.cyu.rt.control.dao.event.EventDao;
 import fr.cyu.rt.control.dao.sensor.SensorDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -25,6 +28,8 @@ import java.util.Optional;
 @Service
 public class SensorService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SensorService.class);
+
     @Autowired
     private SensorRegistry sensorRegistry;
 
@@ -34,7 +39,9 @@ public class SensorService {
     @Autowired
     private EventDao eventDao;
 
+    @Transactional
     public void onDataReceived(SensorDataMessage message) {
+        LOGGER.debug("Receive data");
         Sensor sensor = sensorRegistry.getSensor(message.sensorId())
                 .orElseThrow(() -> new NoSuchElementException("Cannot find sensor by id"));
         sensor.setValue(message.value());
@@ -46,6 +53,7 @@ public class SensorService {
                 message.value()
         );
         sensorDao.saveData(sensorData);
+        LOGGER.debug("Data sensor saved");
     }
 
     public RespSensorDetails getDetails(String sensorId, String type, Optional<Long> optionalDurationS) {

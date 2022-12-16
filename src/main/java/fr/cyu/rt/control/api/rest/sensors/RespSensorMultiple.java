@@ -11,7 +11,8 @@ import java.util.List;
  */
 public record RespSensorMultiple(
         LocalDateTime lastUpdate,
-        List<RespSensor> sensors
+        List<RespSensor> sensors,
+        boolean isAnyOnAlert
 ) {
 
     public RespSensorMultiple(List<Sensor> sensors) {
@@ -22,7 +23,12 @@ public record RespSensorMultiple(
 
              sensors.stream()
                      .map(RespSensor::new)
-                     .toList()
+                     .toList(),
+
+             sensors.stream()
+                     .filter(Sensor::isOnAlert)
+                     .findAny()
+                     .isPresent()
         );
     }
 }
